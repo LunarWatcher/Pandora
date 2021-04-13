@@ -1,0 +1,57 @@
+*pandora* *pandora.vim* *pandora.txt*
+
+License: MIT
+URL: https://github.com/lunarwatcher/pandora
+
+Changelog: N/A
+
+================================================================================
+Table of contents~
+
+    1. Introduction ........................ |pandora-introduction|
+    2. Options ............................. |pandora-options|
+
+================================================================================
+1. Introduction                                             *pandora-introduction*
+
+Pandora is a note-taking helper written in |vim9|. Only limited by your markdown
+parser - Pandora doesn't care what system you throw the markdown files into, if
+any at all. This plugin is meant to help you write markdown, and specifically
+notes, regardless of the how, where, when, and what.
+
+This is largely a meta plugin. It relies on other plugins and programs to do
+certain bits of the heavy lifting, but it either goes in a plugin or in my
+vimrc, and my vimrc already contains over 1000 lines of code.
+
+Requirements~
+ * Vim 9-compatible version of Vim. Compatibility currently guaranteed for
+   8.2.2717 (may change in the future; may work for versions prior to this
+   version). Neovim is not intentionally supported.
+ * Plugin with syntax highlighting for markdown ('optional', but recommended)
+ * Ultisnips ('optional', required for snippets) 
+ * FZF.vim ('optional', required for the markdown list)
+
+How?~
+
+ * By following links, enabling links to be a first-class citizen in your
+   markdown. This is particularly useful for notes, cheat-sheets, and other bits
+   of "decentralized" information
+ * Letting you quick-jump to note directories.
+ * Add ultisnips snippets for file initialization - typing out frontmatter sucks
+ * Enhancing markdown editing: Vim has always, in my experience, been suboptimal
+   for extensive markdown writing. That changes now.
+
+================================================================================
+2. Options                                                       *pandora-options*
+
+Pandora has a set of options. These are listed here.
+
+Table of Contents:
+* |g:PandoraNoteLocations|
+
+--------------------------------------------------------------------------------
+                                                          |g:PandoraNoteLocations|
+
+Default: { 'Notes': { 'location': $HOME .. '/.pandora-vim', 'hidden': 0 } }
+
+vim:ft=help:tw=80
