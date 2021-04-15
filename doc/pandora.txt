@@ -10,6 +10,9 @@ Table of contents~
 
     1. Introduction ........................ |pandora-introduction|
     2. Options ............................. |pandora-options|
+    3. UltiSnips ........................... |pandora-ultisnips|
+    4. Mappings ............................ |pandora-maps|
+    5. Commands ............................ |pandora-commands|
 
 ================================================================================
 1. Introduction                                             *pandora-introduction*
@@ -23,6 +26,21 @@ This is largely a meta plugin. It relies on other plugins and programs to do
 certain bits of the heavy lifting, but it either goes in a plugin or in my
 vimrc, and my vimrc already contains over 1000 lines of code.
 
+While partiually angled towards notes, that isn't the only goal.
+The overall goal is to improve the markdown editing experience, in part by
+adding extensions for general editing, but also by adding extensions that're
+meant to aid with note-taking, regardless of the format.
+
+How?~
+ * By following links, enabling links to be a first-class citizen in your
+   markdown. This is particularly useful for notes, cheat-sheets, and other bits
+   of "decentralized" information
+ * Letting you quick-jump to note directories.
+ * Add ultisnips snippets for file initialization - typing out frontmatter sucks
+ * Overall ehancing markdown editing: Vim has always, in my experience, been
+   suboptimal for extensive markdown writing. That changes now.
+ * Custom text objects for markdown editing
+
 Requirements~
  * Vim 9-compatible version of Vim. Compatibility currently guaranteed for
    8.2.2717 (may change in the future; may work for versions prior to this
@@ -31,15 +49,6 @@ Requirements~
  * Ultisnips ('optional', required for snippets) 
  * FZF.vim ('optional', required for the markdown list)
 
-How?~
-
- * By following links, enabling links to be a first-class citizen in your
-   markdown. This is particularly useful for notes, cheat-sheets, and other bits
-   of "decentralized" information
- * Letting you quick-jump to note directories.
- * Add ultisnips snippets for file initialization - typing out frontmatter sucks
- * Enhancing markdown editing: Vim has always, in my experience, been suboptimal
-   for extensive markdown writing. That changes now.
 
 ================================================================================
 2. Options                                                       *pandora-options*
@@ -50,8 +59,47 @@ Table of Contents:
 * |g:PandoraNoteLocations|
 
 --------------------------------------------------------------------------------
-                                                          |g:PandoraNoteLocations|
+                                                          *g:PandoraNoteLocations*
 
 Default: { 'Notes': { 'location': $HOME .. '/.pandora-vim', 'hidden': 0 } }
+
+Defines a set of jump locations.
+
+The map is in the form of: >
+    "Some key to display": {
+        "location": "Absolute path to your notes",
+        "hidden": "whether or not to hide this directory from lists"
+    }
+<
+(note that the above is a visualization of the meaning of the map entries - it's
+not an exact syntax representation)
+
+                                                                  *pandora-hidden*
+The hidden key in this map refers to whether or not to include the note location
+in various lists. It's still possible to |:PandoraJump| to it by name, but
+|:PandoraList| will not include the directory.
+
+If 'hidden' is set to 1, the entry will be hidden.
+
+================================================================================
+3. UltiSnips                                                   *pandora-ultisnips*
+
+Pandora ships with a set of heavily opinionated frontmatter config. The
+opinionated in this context largely refers to what makes sense to include.
+
+The currently bundled snippets are:
+ | Snippet abbrev.      | Description                               |
+ | -------------------- | ----------------------------------------- | 
+ | hfm                  | "Default" Hugo frontmatter - title and    |
+ |                      | date.                                     |
+
+These can be verified by the reader by looking in the UltiSnips directory
+bundled with Pandora.
+
+================================================================================
+4. Maps                                                             *pandora-maps*
+
+================================================================================
+5. Commands                                                     *pandora-commands*
 
 vim:ft=help:tw=80

@@ -18,3 +18,5 @@ A few of Pandora's features include:
 * Method-agnostic implementation: no matter how or what you're writing, whether that's notes, a code diary, or just documentation, Pandora is built to make the job slightly less shitty
 * Tool agnostic: regardless of what you do (or don't) put the markdown in if/when you feel like publishing it, and regardless of what convert it into, Pandora doesn't care.
 
+For the juicy details, [see the help file](https://github.com/LunarWatcher/Pandora/blob/master/doc/pandora.txt)
+

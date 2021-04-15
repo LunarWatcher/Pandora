@@ -5,3 +5,8 @@ if exists("g:PandoraLoaded")
 endif
 g:PandoraLoaded = 1
 
+augroup PandoraInitAutocmds
+    au!
+    autocmd Filetype markdown call pandora#InitMarkdown()
+augroup END
+

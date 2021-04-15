@@ -6,19 +6,40 @@ if !exists('g:PandoraNoteLocations')
     }
 endif
 
-def pandora#GenericStart()
-    var queryString = ""
+var targets: list<string> = []
+def pandora#DisplayListCallback(id: number, result: number)
+    if targets->len() == 0
+        # Fail silently
+        return
+    endif
+
+enddef
+
+def pandora#DisplayList()
+    var query: list<string> = []
     var counter = 1
-    for [name, data] in items(g:PandoraNoteLocations)
+    for [name, data] in g:PandoraNoteLocations->items()
         if data['hidden'] == 0
-            queryString ..= counter .. ". " .. name .. "(" .. data['location'] .. ")"
+            query->add(counter .. ". " .. name .. "(" .. data['location'] .. ")")
         endif
         counter += 1
     endfor
 
-    # TODO: popup dialog along the lines of NERDTree.
-    # Might need to use a list instead of a string though. iDunno.
-    # Figure it out
+    if (query->len() == 0)
+        popup_notification(["There's no (visible) note locations.", "Add some with g:PandoraNoteLocations to use this menu"], {'pos': 'center'})
+        return
+    endif
+    # A NERDTree-style popup requires an obnoxious amount of code.
+    # We're already requiring a recent version of Vim, so let's use popups
+    # instead.
+    query->popup_menu({
+        'pos': 'center',
+        'zindex': 200, 
+        'drag': 0,
+        'callback': 'pandora#DisplayListCallback',
+        'border': [], 'highlight': 'Statement',
+        'close': 'click', 'padding': [1, 1, 1, 1]
+    })
 
 enddef
 
@@ -27,7 +48,9 @@ def pandora#FollowLink()
 enddef
 
 def pandora#InitMarkdown()
-    nnoremap pdfl :call pandora#FollowLink()<CR>
+    # Not sure if a prefix-based approach makes sense here.
+    # Avoids conflicts at least, so that's a win
+    nnoremap <silent> pdfl :call pandora#FollowLink()<CR>
 enddef
 
 
