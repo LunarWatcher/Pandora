@@ -6,6 +6,14 @@ if !exists('g:PandoraNoteLocations')
     }
 endif
 
+if !exists('g:PandoraOpenAbsoluteRoot')
+    g:PandoraOpenAbsoluteRoot = ''
+endif
+
+if !exists('g:PandoraAskAboutURLIfUnsure')
+    g:PandoraAskAboutURLIfUnsure = 1
+endif
+
 var targets: list<string> = []
 def pandora#DisplayListCallback(id: number, result: number)
     if targets->len() == 0
@@ -20,7 +28,7 @@ def pandora#DisplayList()
     var counter = 1
     for [name, data] in g:PandoraNoteLocations->items()
         if data['hidden'] == 0
-            query->add(counter .. ". " .. name .. "(" .. data['location'] .. ")")
+            query->add(counter .. ". " .. name .. " (" .. data['location'] .. ")")
         endif
         counter += 1
     endfor
@@ -44,7 +52,25 @@ def pandora#DisplayList()
 enddef
 
 def pandora#FollowLink()
-    # TODO: follow links
+    var line = getline('.')
+
+    # Force skip emplty lines
+    if line->substitute('\s+', '', 'g') == ''
+        return
+    endif
+
+    var word: string = expand('<cWORD>')
+    
+    if word =~ '\v\c\<(https?:)*//.*\>$'
+        # We have an embedded URL
+        word = word->substitute('\v\<|\>', '', 'g')
+    elseif word =~ '\v\c\]\((https?:)?/?/?.*\)?'
+        # We have ](link
+        # The last ) may be excluded if there's a space in the () for i.e. alt
+        # text.
+        word = word->substitute('\v(.{-}\]\(|\).*$)', '', 'g')
+    endif
+    echoerr word
 enddef
 
 def pandora#InitMarkdown()

@@ -56,8 +56,9 @@ Requirements~
 Pandora has a set of options. These are listed here.
 
 Table of Contents:
-* |g:PandoraNoteLocations|
-
+ * |g:PandoraNoteLocations|
+ * |g:PandoraOpenAbsoluteRoot|
+ * |g:PandoraAskAboutURLIfUnsure|
 --------------------------------------------------------------------------------
                                                           *g:PandoraNoteLocations*
 
@@ -95,6 +96,35 @@ The currently bundled snippets are:
 
 These can be verified by the reader by looking in the UltiSnips directory
 bundled with Pandora.
+
+--------------------------------------------------------------------------------
+                                                       *g:PandoraOpenAbsoluteRoot*
+
+Default: ''
+
+Since not all markdown projects have the same root, `/file` can be ambiguous
+while editing. This variable sets the path (relative to |getcwd()|) that's
+considered the markdown root for URL navigation
+
+--------------------------------------------------------------------------------
+                                                    *g:PandoraAskAboutURLIfUnsure*
+Default: 1
+
+Pandora does some URL parsing to deal with certain bits of formatting. This is
+largely to remove redundant characters, as well as to distinguish the URL in
+cases where |<cWORD>| isn't enough.
+
+In a few cases, however, Pandora might not recognize the URL format, either
+intentionally (because it's hard to detect, or simply because it's used for
+something that isn't always a link).
+
+If this variable is 1, Pandora will ask you whether you want to open the URL or
+not. Note that this triggering is equivalent to the URL being determined not to
+be an online link, meaning it'll open a file in Vim according to the program
+logic, and NEVER a website.
+
+Open a pull request if you're dealing with an absolute URL format I don't know
+exist.
 
 ================================================================================
 4. Maps                                                             *pandora-maps*
