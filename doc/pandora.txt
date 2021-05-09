@@ -129,7 +129,8 @@ exist.
 ================================================================================
 4. Maps                                                             *pandora-maps*
 
-* *pdl*       Open link under the cursor
+* *<leader>pdl*         Open link under the cursor
+* *<leader>pdo*         Open a list of |g:PandoraNoteLocations| 
 
 ================================================================================
 5. Commands                                                     *pandora-commands*
