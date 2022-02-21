@@ -1,11 +1,11 @@
 vim9script
 
-def pandora#Strings#unicodeLength(str: string): number
+def UnicodeLength(str: string): number
     # This should be fine
     return len(split(str, '\zs'))
 enddef
 
-def pandora#Strings#getUnicodeCharAt(str: string, position: number): string
+def GetUnicodeCharAt(str: string, position: number): string
     if str == ""
         return ""
     endif

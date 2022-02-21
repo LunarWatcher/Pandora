@@ -22,7 +22,7 @@ var hasNERDTree = exists('*nerdtree#version')
 
 var targets: list<string> = []
 
-def pandora#DisplayListCallback(id: number, result: number)
+def DisplayListCallback(id: number, result: number)
     # Result isn't zero-indexed
     if result <= 0
         # -1 is canceled. 0 has no meaning from what I can tell, but result
@@ -48,7 +48,7 @@ def pandora#DisplayListCallback(id: number, result: number)
 
 enddef
 
-def pandora#DisplayList()
+export def DisplayList()
     var query: list<string> = []
     var counter = 1
     for [name, data] in g:PandoraNoteLocations->items()
@@ -70,7 +70,7 @@ def pandora#DisplayList()
         'pos': 'center',
         'zindex': 200,
         'drag': 0,
-        'callback': function('pandora#DisplayListCallback'),
+        'callback': function('DisplayListCallback'),
         'border': [], 'highlight': 'Statement',
         'close': 'click', 'padding': [1, 1, 1, 1]
     })
@@ -78,7 +78,7 @@ def pandora#DisplayList()
 enddef
 
 # Takes care of opening markdown URLs
-def pandora#FollowLink()
+export def FollowLink()
     var line = getline('.')
 
     # Force skip empty lines
@@ -99,9 +99,11 @@ def pandora#FollowLink()
         # The last ) may be excluded if there's a space in the () for i.e. alt
         # text.
         url = word->substitute('\v(.{-}\]\(|\).*$)', '', 'g')
-        if url =~ '\v^(https?:)?//'
-            absUrl = 1
+        absUrl = 1
+        if url !~ '\v^https?://'
+            url = 'https://' .. url
         endif
+        echom url
     elseif word =~ '\v^(https?:)?//.*$'
         # Inline URL or [key]: url
         # I think a space is required for the last one?
@@ -152,7 +154,7 @@ def pandora#FollowLink()
     endif
 enddef
 
-def pandora#InitMarkdown()
+export def InitMarkdown()
     if !exists("b:PandoraAskAboutURLIfUnsure")
         b:PandoraAskAboutURLIfUnsure = g:PandoraAskAboutURLIfUnsure
     endif
