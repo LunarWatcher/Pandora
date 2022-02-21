@@ -43,7 +43,7 @@ How?~
 
 Requirements~
  * Vim 9-compatible version of Vim. Compatibility currently guaranteed for
-   8.2.2717 (may change in the future; may work for versions prior to this
+   8.2.4424 (may change in the future; may work for versions prior to this
    version). Neovim is not intentionally supported.
  * Plugin with syntax highlighting for markdown ('optional', but recommended)
  * Ultisnips ('optional', required for snippets) 
